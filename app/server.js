@@ -61,11 +61,11 @@ module.exports = class Application {
     };
     createRoutes () {
 
-        this.#app.use("/" , (req , res , next) => [
+        this.#app.use("/" , (req , res , next) => {
             res.json({
                 message : "this is new express application."
             })
-        ])
+        })
 
     }
 }
