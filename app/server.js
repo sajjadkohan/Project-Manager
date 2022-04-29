@@ -32,7 +32,7 @@ module.exports = class Application {
         
         mongoose.connect(DB_URL , (error) => {
             if(error) throw error
-            return console.log("success connent to Data Base . . .");
+            return console.log("success connent to Data Base . . ." + DB_URL);
         });
 
     }
@@ -61,11 +61,11 @@ module.exports = class Application {
     };
     createRoutes () {
 
-        this.#app.use("/" , (req , res , next) => [
-            res.json({
-                message : "this is new express application."
+        this.#app.use("/" , (req , res , next) => {
+            return res.json({
+                message : "this is new express application"
             })
-        ])
+        })
 
     }
 }
