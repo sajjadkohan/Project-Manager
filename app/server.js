@@ -58,7 +58,7 @@ module.exports = class Application {
 
         })
 
-    }
+    };
     createRoutes () {
 
         this.#app.use("/" , (req , res , next) => [
