@@ -1,0 +1,13 @@
+### register
+
+POST http://localhost:3001/auth/register
+Content-Type: application/json
+
+{
+    "username" : "imsajjad.k",
+    "email" : "sajjad.k.9093@gmail.com",
+    "mobile" : "+989367109093",
+    "password" : "1234567",
+    "confirm_password" : "1234567"
+
+}

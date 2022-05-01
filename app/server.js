@@ -1,11 +1,13 @@
+const { allRouter } = require("./router/router");
+
 module.exports = class Application {
     #express = require("express");
     #app = this.#express();
     constructor(PORT , DB_URL) {
         this.configDatabase(DB_URL);
         this.configApplication();
-        this.createServer(PORT);
         this.createRoutes();
+        this.createServer(PORT);
         this.errorHandler();
     }
 
@@ -31,7 +33,7 @@ module.exports = class Application {
         const mongoose = require("mongoose");
         
         mongoose.connect(DB_URL , (error) => {
-            if(error) throw error
+            if(error) console.log(error.message);
             return console.log("success connent to Data Base . . ." + DB_URL);
         });
 
@@ -46,7 +48,7 @@ module.exports = class Application {
             })
         })
 
-        this.#app.use((error , req , res , next) => {
+        this.#app.use((err , req , res , next) => {
             const status = error?.status || 500;
             const message = error?.message || "internal server error";
 
@@ -61,11 +63,19 @@ module.exports = class Application {
     };
     createRoutes () {
 
-        this.#app.use("/" , (req , res , next) => {
+        this.#app.get("/" , (req , res , next) => {
             return res.json({
-                message : "this is new express application"
+                message : "this is new express application <<"
             })
         })
+
+        this.#app.use(allRouter)
+        // this.#app.use((err , req , res , next) => {
+        //     try {
+        //     } catch (error) {
+        //         next(error)
+        //     }
+        // })
 
     }
 }
