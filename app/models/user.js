@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     roles : {type : [String] , default : ["USER"]},
     password : {type : String , required : true},
     skills : {type : [String] , default : []},
+    token : {type : String , default : ""},
     teams : {type : [mongoose.Types.ObjectId] , default : []}
 
 }

@@ -1,13 +1,24 @@
 ### register
-
 POST http://localhost:3001/auth/register
 Content-Type: application/json
 
 {
-    "username" : "imsajjad.k",
-    "email" : "sajjad.k.9093@gmail.com",
-    "mobile" : "+989367109093",
+    "username" : "sajjad",
+    "email" : "sajjad.9093@gmail.com",
+    "mobile" : "+989367109090",
     "password" : "1234567",
     "confirm_password" : "1234567"
+
+}
+
+
+### login
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+Authorization: Bearer {{${{$dotenv token}}}}
+
+{
+    "username" : "sajjad",
+    "password" : "1234567"
 
 }

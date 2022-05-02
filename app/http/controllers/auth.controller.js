@@ -1,7 +1,8 @@
 const { validationResult } = require("express-validator");
 const { json } = require("express/lib/response");
 const { userModel } = require("../../models/user");
-const { hashedString } = require("../../modules/functions");
+const { hashedString, createJwt } = require("../../modules/functions");
+const bcrypt = require("bcrypt");
 
 class authController {
 
@@ -12,9 +13,7 @@ class authController {
             const hashedPassword = hashedString(password)
             const user = await userModel.create({username , password : hashedPassword , email , mobile})
             .catch(err => {
-                if(err.code == 11000) {
-                   res.json({status : 400 , success : false , message : "نام کاربری شما قبلا استفاده شدهاست"}) 
-                }
+                console.log(err);
             })
     
             return res.json(user)
@@ -26,8 +25,34 @@ class authController {
    
     }
 
-    login () {
+    async login (req, res , next) {
+        try {
 
+            const {username , password} = req.body;
+
+            
+            const user = await userModel.findOne({username});
+            if(!user) throw {status : 401 , message : "نام کاربری یا رمز عبور وجود ندارد"}
+            
+            const compaireData = bcrypt.compareSync(password , user.password);
+            if(!compaireData)  throw {status : 401 , success : false , message : "رمز و نام کاربری صحیح نمیباشد"};
+            
+            let token = createJwt({username});
+            user.token = token;
+            await user.save();
+
+            console.log(req.headers);
+
+           return res.status(200).json({
+               status : 200,
+               success : true,
+               message : "ورود شما موفقیت اموز بود",
+               token
+           })
+
+        } catch (error) {
+            next()
+        }
     }
 
     resetPassword () {
