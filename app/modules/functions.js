@@ -20,7 +20,14 @@ function createJwt (payload) {
     
 }
 
+function verifyJwtToken (token) {
+    const result = jwt.verify(token , process.env.SECRET_KEY);
+    if(!result.username) throw "توکن منقضی شده";
+    return result
+}
+
 module.exports = {
     hashedString,
-    createJwt
+    createJwt,
+    verifyJwtToken
 }

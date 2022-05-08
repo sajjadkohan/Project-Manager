@@ -1,0 +1,15 @@
+### get profile
+http://localhost:3001/user/profile
+Authorization: Bearer {{$dotenv token}}
+
+
+### edit profile
+POST  http://localhost:3001/user/edit_profile
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{
+    "first_name" : "sajjad kohan new",
+    "last_name" : "new-last-name2",
+    "skills" : ["nodejs" , "express js"]
+}
