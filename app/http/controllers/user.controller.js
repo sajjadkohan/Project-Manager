@@ -4,8 +4,11 @@ class UserController {
 
     getProfile (req, res , next) {
         try {
-    
+
     const user = req.user;
+
+    user.profile_image = req.protocol + "://" + req.get("host") + user.profile_image.substring(7).replace(/[\\\\]/gm,"/")
+
     return res.status(200).json({
         status : 200,
         user
@@ -34,7 +37,7 @@ class UserController {
             })
             
             const result = await userModel.updateOne({_id : userID} , {$set : data});
-            console.log(data);
+            console.log("data");
             if(result.modifiedCount > 0) {
                 return res.status(200).json({
                     status : 200,
@@ -44,6 +47,25 @@ class UserController {
             }
 
             throw {status : 401 , success : false , message : "مشکلی در اپدیت به وجود امد"}
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+   async uploadProfile (req, res , next) {
+        try {
+            const userID = req.user._id;
+            const imageFile = req.file.path.substring(40)
+            console.log(imageFile);
+            const result = await userModel.updateOne({_id : userID} , {$set : {profile_image : imageFile}})
+            if(result.modifiedCount == 0) throw {status : 402 , success : false , message : "ناموفق"}
+
+            return res.status(200).json({
+                status : 200,
+                success : true,
+                message : "عملیات با موفقیت انجام شد"
+            })
 
         } catch (error) {
             next(error)

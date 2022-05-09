@@ -10,7 +10,7 @@ try {
     const token = authorization.split(" ")?.[1];
     if(!token) throw {status : 401 , message : "token مشکل داره"};
     const resultToken = verifyJwtToken(token);
-    console.log("USER"+resultToken);
+    // console.log("USER"+resultToken);
     if(!resultToken) throw {status : 401 , message : "توکن منقضی شده 2"};
     const {username} = resultToken;
     const user = await userModel.findOne({username} , {password : 0});
