@@ -1,0 +1,26 @@
+### create team
+POST http://localhost:3001/team/create
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{
+    "name" : "PASSHAMEDAN",
+    "description" : "futball team",
+    "username" : "HEMEDAN"
+}
+
+
+### get all teams
+GET  http://localhost:3001/team/list
+Authorization: Bearer {{$dotenv token}}
+
+
+### get my teams
+GET http://localhost:3001/team/myteam/me
+Authorization: Bearer {{$dotenv token}}
+
+
+### invite user to team
+POST http://localhost:3001/team/invite/627c22aa2d3794963487091f/DAVOUD
+Authorization: Bearer {{$dotenv token}}
+

@@ -17,7 +17,6 @@ try {
     if(!user) throw{status : 401 , message : "کاربر یافت نشد"}
     req.user = user;
     next();
- 
 
 } catch (error) {
     next(error)

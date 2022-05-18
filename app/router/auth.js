@@ -8,7 +8,6 @@ router.use("/register" , registerValidator() , expressValidatorMapper , authCont
 
 router.use("/login" , loginValidator() , expressValidatorMapper , authController.login)
 
-
 module.exports = {
     authRouter : router
 }

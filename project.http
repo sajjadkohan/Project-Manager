@@ -9,3 +9,29 @@ Content-Type: application/json
     "text" : "this is description for new project2",
     "tags" : ["new" , "high" , "test2" , "new5"]
 }
+
+
+### get all project
+GET http://localhost:3001/project/list
+Authorization: Bearer {{$dotenv token}}
+
+### get project by id
+GET http://localhost:3001/project/62790116dfe02d1b68a099ac
+Authorization: Bearer {{$dotenv token}}
+
+### remove project by id
+DELETE http://localhost:3001/project/remove/627900efdfe02d1b68a099a9
+Authorization: Bearer {{$dotenv token}}
+
+### update project by id
+PUT http://localhost:3001/project/edit/62790116dfe02d1b68a099ac
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{
+    "title" : "last",
+    "text" : "1111lorem lorem ipsum lorem lolrem ipsun 12345677",
+    "tags" : ["1","2","4"],
+    "tag" : ["1","2","3"]
+
+}

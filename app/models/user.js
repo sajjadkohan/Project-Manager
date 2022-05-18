@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const InviteRequest = new mongoose.Schema({
+    teamID : {type : mongoose.Types.ObjectId , required : true},
+    caller : {type : String , required : true , lowercase : true},
+    dateRequest : {type : Date , default : new Date()},
+    status : {type : String , default : "pending"}
+})
+
 const userSchema = new mongoose.Schema({
 
     first_name : {type : String},
@@ -13,7 +20,8 @@ const userSchema = new mongoose.Schema({
     profile_image : {type : String},
     skills : {type : [String] , default : []},
     token : {type : String , default : ""},
-    teams : {type : [mongoose.Types.ObjectId] , default : []}
+    teams : {type : [mongoose.Types.ObjectId] , default : []},
+    inviteRequest : {type : [InviteRequest] , default : []}
 
 }
 ,{timestamps : true}

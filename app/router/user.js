@@ -6,6 +6,9 @@ const { uploadimgProfile } = require("../modules/multer");
 const router = require("express").Router();
 
 router.get("/profile" , checkLogin , UserController.getProfile);
+router.get("/inviterequest" , checkLogin , UserController.getAllRequest);
+router.get("/getstatus" , checkLogin , UserController.getStatusInviteRequestToTeam);
+
 router.post("/edit_profile" , checkLogin , UserController.edditProfile);
 router.post("/upload_profile" ,checkLogin , uploadimgProfile.single("image") ,  imageValidator() ,  UserController.uploadProfile);
 

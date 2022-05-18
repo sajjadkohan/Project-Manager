@@ -72,6 +72,44 @@ class UserController {
         }
     }
 
+    async getAllRequest (req, res , next) {
+        try {
+            
+            const userID = req.user._id;
+            const {inviteRequest} = await userModel.findOne({_id : userID},{inviteRequest : 1});
+
+            return res.status(201).json({
+                requests : inviteRequest || []
+            })
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getStatusInviteRequestToTeam (req,res,next) {
+        try {
+            const userID = req.user._id;
+            const statusRequest = await userModel.aggregate([
+                {
+                    $match : {_id : userID}
+                },
+                {
+                    $project : {inviteRequest : 1 , _id : 0}
+                }
+            ])
+
+            return res.status(201).json({
+                status : 201,
+                success : true,
+                statusRequest : statusRequest[0].inviteRequest[0].status
+            })
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
     addSkills () {
 
     }

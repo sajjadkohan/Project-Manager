@@ -8,11 +8,12 @@ const { uploadfile } = require("../modules/express-fileupload");
 const router = require("express").Router();
 router.post("/create" , checkLogin , createProjectValidation() , expressValidatorMapper ,ProjectController.createProject)
 
-router.get("/list" , checkLogin ,ProjectController.getAllProject)
-router.get("/:id" , checkLogin , mongoIDValidation() , expressValidatorMapper ,ProjectController.getProjectById)
-router.get("/remove/:id" , checkLogin , mongoIDValidation() , expressValidatorMapper ,ProjectController.removeProject)
+router.get("/list" , checkLogin ,ProjectController.getAllProject);
+router.get("/:id" , checkLogin , mongoIDValidation() , expressValidatorMapper ,ProjectController.getProjectById);
 
-router.post("/edit/:id" , checkLogin , mongoIDValidation() , expressValidatorMapper ,ProjectController.updateProject)
+router.delete("/remove/:id" , checkLogin , mongoIDValidation() , expressValidatorMapper ,ProjectController.removeProject);
+
+router.put("/edit/:id" , checkLogin , mongoIDValidation() , expressValidatorMapper ,ProjectController.updateProject);
 
 module.exports = {
     projectRouter : router
